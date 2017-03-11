@@ -37,7 +37,9 @@
 }
 .about-me {
   background-color: #76C4B6;
-    border: 5px white;
+      border-color: white;
+    border-width: 6px;
+    border-style: dotted;
 }
 .about-description {
   display: none;
@@ -50,6 +52,9 @@
   background-size: cover;
   color: #fff;
   padding-bottom: 5rem;
+    
+	box-shadow: 0 0 0 5px #fff, 0 0 0 5px #ddd, 0 0 0 10px #fff, 0 0 8px 10px #76C4B6;
+    border-bottom: 20px white solid;
 }
 .value-multiplier {
   margin-bottom: .5rem;
@@ -121,6 +126,18 @@
 
 #tweet ul {
   list-style-type: none;
+}
+
+/* Input
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+input{
+    color:gray;
+}
+
+input[type="submit"]{
+    color:white;
+    background-color: #6D5543;
 }
 
 .hero-heading{
