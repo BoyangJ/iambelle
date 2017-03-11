@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Skeleton: Responsive CSS Boilerplate</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pacifico">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Open+Sans" rel="stylesheet">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/simpletextrotator.css">
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script type="text/javascript" src="scripts/jquery.simple-text-rotator.js"></script>
+    
+
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../../dist/images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <div class="section hero">
+    <div class="container">
+         <h3 class="belle">Hi, I am Belle...</h3>
+      <div class="row">
+          
+        <div class="one-half column">
+           
+          <h4 class="hero-heading"> I think you're  <span class="rotate">beautiful, exciting, adventurous, fashionable, unique, talented </span></h4>
+        </div>
+        <div class="one-half column phones">
+          <img class="phone" src="images/belle.png">
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section values">
+    <div class="container">
+      <div class="row">
+        <div class="one-half column value">
+           <h2 class="friend">Introduce me!</h2>
+          <p class="about">Tell me your friend's name, I will go meet them!</p>
+        </div>
+        <div class="one-half column value">
+              <h2 class="friend">My latest friend!</h2>
+                <div id="tweet"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="section about-me">
+    <div class="container">
+      <h3 class="about-heading">About Me!</h3>
+      <p class="about-description">This is what I do!</p>
+      <a class="button button-primary" href="http://twitter.com/iambellebot">Come Visit Me!</a>
+    </div>
+  </div>
+
+
+    <script type="text/javascript">
+	    $(".rotate").textrotator({
+	      animation: "flipUp",
+	      speed: 1500
+	    });
+	</script>
+
+            <!-- moment.js only needed for Query 6 example -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+
+    <script type="text/javascript" src="scripts/twitterFetcher_min.js"></script>
+    <script type="text/javascript" src="scripts/exampleUsage.js"></script>
+    
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
