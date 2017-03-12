@@ -29,7 +29,25 @@
   display: none;
 }
 
+.lace{
+    max-width:104%;
+    margin-left:-1.5rem;
+}
+.upsidedown{
+        -moz-transform: scaleY(-1);
+        -o-transform: scaleY(-1);
+        -webkit-transform: scaleY(-1);
+        transform: scaleY(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+        
 /* About
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .about-heading {
@@ -37,13 +55,12 @@
 }
 .about-me {
   background-color: #76C4B6;
-      border-color: white;
-    border-width: 6px;
-    border-style: dotted;
+
 }
 .about-description {
-  display: none;
+    color:white;
 }
+
 
 /* Values
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -116,6 +133,17 @@
     
 
 
+.bow, .bowr, .bowl{
+    max-width:100px;
+    margin-top: -4rem;
+}
+.bowl{
+    float:left;
+}
+.bowr{
+    float:right;
+}
+
 /* Input
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
@@ -123,7 +151,7 @@ input{
     color:gray;
 }
 
-#submit-button{
+#submit-button, .about-button{
     border: 2px white solid;
     color:white;
     background-color: #6D5543;
