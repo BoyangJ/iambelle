@@ -124,10 +124,8 @@ def authorTweet(URL):
 
     general_tags = app.tag_urls([URL], model='general-v1.3')
     general_concepts = general_tags['outputs'][0]['data']['concepts']
-    print("General Concepts: " + general_concepts)
 
     subject, confidence = get_subject(general_concepts)
-    print("Subject: %s, Confidence: %s" % subject, str(confidence))
 
     # Authors a tweet based off what is believed to be in the photo
     final_tweet = ""
@@ -138,7 +136,6 @@ def authorTweet(URL):
     elif subject == "female" or subject == "male":
         apparel_tags = app.tag_urls([URL], model='apparel')
         apparel_concepts = apparel_tags['outputs'][0]['data']['concepts']
-        print("Apparel Concepts: " + apparel_concepts)
 
         # Populates a map with confidences and values for photo categories
         confidence_map = {}
@@ -159,9 +156,6 @@ def authorTweet(URL):
         confidence_map["clothes"] = clothes_confidence + 0.1
         confidence_map["outside"] = outside_confidence
         confidence_map["unknown"] = 0
-
-        for key, value in confidence_map.items():
-            print("Category: %s, Confidence: %s" % key, value)
 
         largest = keywithmaxval(confidence_map)
         if largest == "eyes":
