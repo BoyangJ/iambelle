@@ -75,7 +75,8 @@ def get_user_tweets(u_id):
                 full_tweet = "@%s " % status.user.screen_name
                 full_tweet = full_tweet + tweet_body
 
-                reply_to_tweet(status.id, full_tweet)
+                if reply_to_tweet(status.id, full_tweet):
+                    return
 
                 print ("FULL TWEET = ", full_tweet)
                 print ("\nTEXT = ", status.full_text)
