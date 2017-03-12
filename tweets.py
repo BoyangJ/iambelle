@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
- 
+
 import tweepy, time, sys
 import configparser
 import code
@@ -39,9 +39,13 @@ def get_local_tweets():
 
     counter = 0
 
-    for status in reversed(vic_tweets):
+    temp = True
+
+    for status in vic_tweets:
         if 'media' in status.entities:
-            if status.entities['media'][0]['type'] == 'photo':
+            if status.entities['media'][0]['type'] == 'photo' and temp:
+
+                print ("\nALL THING = \n", status)
                 print ("\nTEXT = ", status.full_text)
                 print ("ID = ", status.id)
                 print ("CREATED AT = ", status.created_at)
@@ -49,6 +53,7 @@ def get_local_tweets():
                 print ("url = twitter.com/statuses/", status.id, sep='')
                 print ("media_url = ", status.entities['media'][0]['media_url_https'])
                 counter = counter+1
+                temp = False
 
     print ("\n***** NUM PICTURES = %d *****\n" % counter)
 
@@ -60,7 +65,7 @@ def get_user_tweets(u_id):
     user_tweets = api.user_timeline(u_id, tweet_mode='extended', include_rts=False);
 
     print ("\n***** USER %s HAS %d TWEETS *****\n" % (u_id, len(user_tweets)))
-    
+
     counter = 0
 
     for status in user_tweets:
@@ -68,14 +73,15 @@ def get_user_tweets(u_id):
             if status.entities['media'][0]['type'] == 'photo':
                 # photo tweet found, send to image analyzer
                 tweet_body = authorTweet(status.entities['media'][0]['media_url_https'])
-                
+
                 if tweet_body is '':
                     continue
-                
+
                 full_tweet = "@%s " % status.user.screen_name
                 full_tweet = full_tweet + tweet_body
 
-                reply_to_tweet(status.id, full_tweet)
+                if reply_to_tweet(status.id, full_tweet):
+                    return
 
                 print ("FULL TWEET = ", full_tweet)
                 print ("\nTEXT = ", status.full_text)
@@ -92,10 +98,10 @@ def get_user_tweets(u_id):
 # tweets a reply to tweet with id=t_id
 # parameter t_id must be a Twitter status id.
 def reply_to_tweet(t_id, tweet):
-    
+
     #screen_name = api.get_status(t_id, tweet_mode='extended').user.screen_name
     #print ("\nSCREEN NAME HERE = ", screen_name)
-    
+
     #reply_text = generate_reply(screen_name)
     #print ("\nREPLY TEXT HERE = ", reply_text)
 
@@ -110,13 +116,13 @@ def reply_to_tweet(t_id, tweet):
 
 # generates a tweet's text body
 # parameter u_name must be the Twitter @handle of the recipient
-def generate_reply(u_name):
-    return "@%s you are pretty ☺️" % u_name
+#def generate_reply(u_name):
+#    return "@%s you are pretty ☺️" % u_name
 
 
 
 
-
+#get_local_tweets()
 #get_user_tweets("baronbojangles")
 #reply_to_tweet(840743579299414016)
 
@@ -147,7 +153,7 @@ def generate_reply(u_name):
 #print (user.followers_count)
 #for friend in user.friends():
 #  print (friend.screen_name)
-   
+
 
 #for line in f:
 #    api.update_status(line)
