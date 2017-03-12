@@ -104,29 +104,17 @@
 /* Tweet
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 
-#tweet img, #tweet .user, #tweet .timePosted, #tweet .interact{
-    display:none;
-
-}
-
-#tweet{
+.tweet{
     font-size: 1.7rem;
     background-color:white;
     border-radius: 10px;
     border-style:  dotted;
     border-color: #76C4B6;
     border-width: 3px;
-    color: #F8A7DB;
-    padding: 15px;
+    color: white;
 }
     
-#tweet a{
-    color: #76C4B6
-}
 
-#tweet ul {
-  list-style-type: none;
-}
 
 /* Input
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -135,7 +123,8 @@ input{
     color:gray;
 }
 
-input[type="submit"]{
+#submit-button{
+    border: 2px white solid;
     color:white;
     background-color: #6D5543;
 }
@@ -157,7 +146,7 @@ input[type="submit"]{
   }
   .phone {
     position: absolute;
-    top: -7rem;
+    top: -18rem;
     right: 3rem;
     max-height: 362px;
     z-index: 3;
@@ -187,7 +176,7 @@ input[type="submit"]{
     padding: 7rem 0 15rem;
   }
   .hero {
-    padding: 8rem 0 14rem;
+    padding: 12rem 0 14rem;
   }
   .section-description {
     max-width: 60%;
@@ -195,7 +184,7 @@ input[type="submit"]{
     margin-right: auto;
   }
   .phone {
-    top: -25rem;
+    top: -21rem;
     right: -5rem;
     max-height: 700px;
   }
