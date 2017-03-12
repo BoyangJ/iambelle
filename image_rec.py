@@ -143,7 +143,7 @@ def authorTweet(URL):
         happy, happy_confidence = is_happy(general_concepts)
         clothes, clothes_confidence = get_clothing(apparel_concepts)
         outside, outside_confidence = is_outside(general_concepts)
-        if clothes.lower() == "men's watch" || clothes.lower == "women's watch":
+        if clothes.lower() == "men's watch" or clothes.lower == "women's watch":
             if not (clothing_confidence > 0.95):
                 clothes.confidence = -1.0
         #print(eyes_confidence)
