@@ -1,0 +1,65 @@
+
+{
+  “single”: {
+  	“Hair”: [
+		  “$ hair color really suits you!”,
+		  “Your $ hair looks great in this picture!”
+		],
+	“Clothes”: [
+			“You look mega cute in your $!”,
+			“You look cute in your $!”,
+			“You look fantastic in your $!”,
+			“You look beautiful in your $!”,
+			“You look handsome in your $!”,
+			“You’re wearing your $ so well!”,
+			“Wow, nice $! Looking sweet :) ”,
+			“Wow, nice $! Looking adorable :) ”,
+			“Your $ really suits you!”,
+			“I’ve never seen anyone wear a $ better :)”,
+		    ],
+	“Eye”: [
+			“Your eyes are so beautiful in this picture”,
+			“Such stunning eyes! I’m enamoured!”
+		], 
+	
+	“Happy”: [
+			“You are smiling so nice here!”
+			“What a great smile!”
+			“I’m happy that you’re happy!”
+		   ],
+	
+	“Outside”: [
+			“You look like you’re having fun outside!”
+			“Are you going on a fun adventure today?
+			“Enjoy the sunshine sweetheart!”
+		],
+  },
+  “group”: [ 
+		“What a good looking group!”,
+		“What nice company you have!”,
+		“Wow! Such a nice bunch of friends!”
+	],
+		   	
+ 
+  “pets”: [
+		“WOW, such a cute $!”,
+		“I want to come cuddle that $”,
+		“That’s the best $ I’ve ever seen!”
+	  ],
+
+
+  “icons”: [
+		“(｡♥‿♥｡)”,
+		“✿♥‿♥✿”,
+		“(灬♥ω♥灬)”,
+		“o(^▽^)o”,
+		“o(*>ω<*)o”,
+		“(ﾉ´ヮ´)ﾉ*:･ﾟ✧”,
+		“╰(✧∇✧╰)”,
+		“ヽ(^o^)丿”,
+		“٩(^ᴗ^)۶”,
+		“(༶ૢ˃̵̑◡˂̵̑༶ૢ)”
+	]
+
+}
+
