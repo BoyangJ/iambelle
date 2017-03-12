@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
- 
+
 import tweepy, time, sys
 import configparser
 import code
@@ -65,7 +65,7 @@ def get_user_tweets(u_id):
     user_tweets = api.user_timeline(u_id, tweet_mode='extended', include_rts=False);
 
     print ("\n***** USER %s HAS %d TWEETS *****\n" % (u_id, len(user_tweets)))
-    
+
     counter = 0
 
     for status in user_tweets:
@@ -73,10 +73,10 @@ def get_user_tweets(u_id):
             if status.entities['media'][0]['type'] == 'photo':
                 # photo tweet found, send to image analyzer
                 tweet_body = authorTweet(status.entities['media'][0]['media_url_https'])
-                
+
                 if tweet_body is '':
                     continue
-                
+
                 full_tweet = "@%s " % status.user.screen_name
                 full_tweet = full_tweet + tweet_body
 
@@ -98,10 +98,10 @@ def get_user_tweets(u_id):
 # tweets a reply to tweet with id=t_id
 # parameter t_id must be a Twitter status id.
 def reply_to_tweet(t_id, tweet):
-    
+
     #screen_name = api.get_status(t_id, tweet_mode='extended').user.screen_name
     #print ("\nSCREEN NAME HERE = ", screen_name)
-    
+
     #reply_text = generate_reply(screen_name)
     #print ("\nREPLY TEXT HERE = ", reply_text)
 
@@ -153,7 +153,7 @@ def reply_to_tweet(t_id, tweet):
 #print (user.followers_count)
 #for friend in user.friends():
 #  print (friend.screen_name)
-   
+
 
 #for line in f:
 #    api.update_status(line)
