@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
- 
+
 import tweepy, time, sys
 import configparser
 import code
+import os
 
 from image_rec import authorTweet
 
@@ -11,10 +12,10 @@ from image_rec import authorTweet
 Config = configparser.ConfigParser()
 Config.read("config.ini")
 
-CONSUMER_KEY = Config['AuthInfo']['CONSUMER_KEY']
-CONSUMER_SECRET = Config['AuthInfo']['CONSUMER_SECRET']
-ACCESS_KEY = Config['AuthInfo']['ACCESS_KEY']
-ACCESS_SECRET = Config['AuthInfo']['ACCESS_SECRET']
+CONSUMER_KEY = os.environ['CONSUMER_KEY']
+CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+ACCESS_KEY = os.environ['ACCESS_KEY']
+ACCESS_SECRET = os.environ['ACCESS_SECRET']
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
@@ -53,7 +54,7 @@ def get_user_tweets(u_id):
     user_tweets = api.user_timeline(u_id, tweet_mode='extended');
 
     print ("\n***** USER %s HAS %d TWEETS *****\n" % (u_id, len(user_tweets)))
-    
+
     counter = 0
 
     for status in user_tweets:
@@ -61,10 +62,10 @@ def get_user_tweets(u_id):
             if status.entities['media'][0]['type'] == 'photo':
                 # photo tweet found, send to image analyzer
                 tweet_body = authorTweet(status.entities['media'][0]['media_url_https'])
-                
+
                 if tweet_body is '':
                     continue
-                
+
                 full_tweet = "@%s " % status.user.screen_name
                 full_tweet = full_tweet + tweet_body
 
@@ -85,10 +86,10 @@ def get_user_tweets(u_id):
 # tweets a reply to tweet with id=t_id
 # parameter t_id must be a Twitter status id.
 def reply_to_tweet(t_id, tweet):
-    
+
     #screen_name = api.get_status(t_id, tweet_mode='extended').user.screen_name
     #print ("\nSCREEN NAME HERE = ", screen_name)
-    
+
     #reply_text = generate_reply(screen_name)
     #print ("\nREPLY TEXT HERE = ", reply_text)
 
@@ -136,7 +137,7 @@ def generate_reply(u_name):
 #print (user.followers_count)
 #for friend in user.friends():
 #  print (friend.screen_name)
-   
+
 
 #for line in f:
 #    api.update_status(line)
