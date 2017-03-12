@@ -4,6 +4,7 @@
 import tweepy, time, sys
 import configparser
 import code
+import os
 
 from image_rec import authorTweet
 

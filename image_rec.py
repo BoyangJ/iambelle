@@ -1,6 +1,8 @@
 import json
 import random
+import os
 from clarifai.rest import ClarifaiApp
+
 
 acceptable_confidence = 0.8
 clothing_confidence = 0.6
