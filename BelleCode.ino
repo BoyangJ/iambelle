@@ -53,7 +53,12 @@ void setup()
     pinMode(ledPin4, OUTPUT);
     pinMode(ledPin3, OUTPUT);
     pinMode(ledPin7, OUTPUT);
+
     
+    digitalWrite(ledPin2, HIGH); //set leds on. Light up da heart!
+    digitalWrite(ledPin4, HIGH);
+    digitalWrite(ledPin3, HIGH);
+    digitalWrite(ledPin7, HIGH);
     //Set LCD colour
     colourR = 150;
     colourG = 150;
@@ -61,14 +66,14 @@ void setup()
     lcd.setRGB(colourR, colourG, colourB);
     lcd.setCursor(0, 0);
     lcd.print(":o "); //omg message coming!
-    delay(5000);    
-
+    delay(3500);    
 
     digitalWrite(ledPin2, HIGH); //set leds on. Light up da heart!
     digitalWrite(ledPin4, HIGH);
     digitalWrite(ledPin3, HIGH);
     digitalWrite(ledPin7, HIGH);
-
+    delay(1000);
+    
     //set LCD display colour red
     colourR = 255;
     colourG = 0;
@@ -84,45 +89,76 @@ void setup()
     colourG = 0;
     colourB = 255;
     lcd.setRGB(colourR, colourG, colourB); //purple
+        //turn heart lights off
+    digitalWrite(ledPin2, LOW);
+    digitalWrite(ledPin4, LOW);
+    digitalWrite(ledPin3, LOW);
+    digitalWrite(ledPin7, LOW);
     delay(colourflash_time);
     colourR = 0;
     colourG = 0;
     colourB = 255;
     lcd.setRGB(colourR, colourG, colourB);  //blue
+    digitalWrite(ledPin2, HIGH); //set leds on. Light up da heart!
+    digitalWrite(ledPin4, HIGH);
+    digitalWrite(ledPin3, HIGH);
+    digitalWrite(ledPin7, HIGH);
     delay(colourflash_time);
     colourR = 0;
     colourG = 255;
     colourB = 255;
     lcd.setRGB(colourR, colourG, colourB); //cyan
+        //turn heart lights off
+    digitalWrite(ledPin2, LOW);
+    digitalWrite(ledPin4, LOW);
+    digitalWrite(ledPin3, LOW);
+    digitalWrite(ledPin7, LOW);
     delay(colourflash_time);
     colourR = 0;
     colourG = 255;
     colourB = 0;
     lcd.setRGB(colourR, colourG, colourB); //green
+    digitalWrite(ledPin2, HIGH); //set leds on. Light up da heart!
+    digitalWrite(ledPin4, HIGH);
+    digitalWrite(ledPin3, HIGH);
+    digitalWrite(ledPin7, HIGH);
     delay(colourflash_time);
     colourR = 255;
     colourG = 255;
     colourB = 0;
     lcd.setRGB(colourR, colourG, colourB); //yellow
+    //turn heart lights off
+    digitalWrite(ledPin2, LOW);
+    digitalWrite(ledPin4, LOW);
+    digitalWrite(ledPin3, LOW);
+    digitalWrite(ledPin7, LOW);
     delay(colourflash_time);
+    digitalWrite(ledPin2, HIGH); //set leds on. Light up da heart!
+    digitalWrite(ledPin4, HIGH);
+    digitalWrite(ledPin3, HIGH);
+    digitalWrite(ledPin7, HIGH);
 
+    //screen backlight to white to display subsequent messages
+    int whiteval = 100;
+    colourR = whiteval;
+    colourG = whiteval;
+    colourB = whiteval;
+    lcd.setRGB(colourR, colourG, colourB); //white
+    lcd.clear();
+    delay(3000); 
     //turn heart lights off
     digitalWrite(ledPin2, LOW);
     digitalWrite(ledPin4, LOW);
     digitalWrite(ledPin3, LOW);
     digitalWrite(ledPin7, LOW);
 
-    //screen backlight to white to display subsequent messages
-    int whiteval = 255;
-    colourR = whiteval;
-    colourG = whiteval;
-    colourB = whiteval;
-    lcd.setRGB(colourR, colourG, colourB); //white
-    lcd.clear();
-    delay(1000); 
-
     //ready cursor
     lcd.setCursor(0, 0);
+    //set LED pins to input to save power
+    pinMode(ledPin2, INPUT);
+    pinMode(ledPin4, INPUT);
+    pinMode(ledPin3, INPUT);
+    pinMode(ledPin7, INPUT);
 }
 
 void loop() 
