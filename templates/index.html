@@ -60,14 +60,18 @@
     </div>
   </div>
 
+    <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
+    
   <div class="section values">
     <div class="container">
       <div class="row">
         <div class="one-half column value">
            <h2 class="friend">Introduce me!</h2>
           <p class="about">Tell me your friend's name, I will go meet them!</p>
-            <input type="text" placeholder="@TwitterHandle"><br>
-              <button id="submit-button" onclick="submitHandle()"> Go! </button>
+            <form action="introduceme" method="POST"  target="dummyframe">
+            <input type="text" name="name" placeholder="@TwitterHandle"><br>
+              <button id="submit-button" type="submit" onclick="submitHandle()"> Go! </button>
+                </form>
             <p class="about" id="hidden-submit"></p> 
         </div>
             

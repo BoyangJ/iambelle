@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -7,6 +7,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/introduceme', methods=['POST'])
-def introduce(data):
+def introduce():
+    thing = request.form['name']
     # send data to boyangs function
-    return ("data")
+    return thing

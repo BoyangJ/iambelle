@@ -147,7 +147,7 @@ input{
   .phone {
     position: absolute;
     top: -18rem;
-    right: 3rem;
+    right: -5rem;
     max-height: 362px;
     z-index: 3;
   }
