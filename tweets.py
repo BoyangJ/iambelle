@@ -5,6 +5,7 @@ import tweepy, time, sys
 import configparser
 import code
 
+from main import authorTweet
 
 # get Twitter app auth info
 Config = configparser.ConfigParser()
@@ -55,9 +56,21 @@ def get_user_tweets(u_id):
     
     counter = 0
 
-    for status in reversed(user_tweets):
+    for status in user_tweets:
         if 'media' in status.entities:
             if status.entities['media'][0]['type'] == 'photo':
+                # photo tweet found, send to image analyzer
+                tweet_body = authorTweet(status.entities['media'][0]['media_url_https'])
+                
+                if tweet_body is '':
+                    continue
+                
+                full_tweet = "@%s " % status.user.screen_name
+                full_tweet = full_tweet + tweet_body
+
+                reply_to_tweet(status.id, full_tweet)
+
+                print ("FULL TWEET = ", full_tweet)
                 print ("\nTEXT = ", status.full_text)
                 print ("ID = ", status.id)
                 print ("CREATED AT = ", status.created_at)
@@ -71,16 +84,16 @@ def get_user_tweets(u_id):
 
 # tweets a reply to tweet with id=t_id
 # parameter t_id must be a Twitter status id.
-def reply_to_tweet(t_id):
+def reply_to_tweet(t_id, tweet):
     
-    screen_name = api.get_status(t_id, tweet_mode='extended').user.screen_name
-    print ("\nSCREEN NAME HERE = ", screen_name)
+    #screen_name = api.get_status(t_id, tweet_mode='extended').user.screen_name
+    #print ("\nSCREEN NAME HERE = ", screen_name)
     
-    reply_text = generate_reply(screen_name)
-    print ("\nREPLY TEXT HERE = ", reply_text)
+    #reply_text = generate_reply(screen_name)
+    #print ("\nREPLY TEXT HERE = ", reply_text)
 
     api.create_favorite(t_id)
-    api.update_status(reply_text, t_id)
+    api.update_status(tweet, t_id)
 
 
 
@@ -93,7 +106,7 @@ def generate_reply(u_name):
 
 
 
-get_user_tweets("iambellebot")
+#get_user_tweets("baronbojangles")
 #reply_to_tweet(840743579299414016)
 
 
@@ -132,4 +145,4 @@ get_user_tweets("iambellebot")
 
 
 
-code.interact(local=locals())
+#code.interact(local=locals())
