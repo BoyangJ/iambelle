@@ -111,9 +111,7 @@ def is_outside(concepts):
             break
     return outside, confidence
 
-while True:
-    URL = input("Please enter a URL: ")
-    URL = URL[:-1]
+def authorTweet(URL):
 
     tweet_file = open("tweet_template.json", 'r', encoding="utf8")
     tweets = json.load(tweet_file)
@@ -123,9 +121,9 @@ while True:
     general_concepts = general_tags['outputs'][0]['data']['concepts']
 
     subject, confidence = get_subject(general_concepts)
-    print(general_concepts)
+    #print(general_concepts)
 
-    print(subject + "  " + str(confidence))
+    #print(subject + "  " + str(confidence))
     final_tweet = ""
     if subject == "group":
         final_tweet = tweets["group"][random.randrange(0, 3)] + "  " + tweets["icons"][random.randrange(0,10)]
@@ -134,20 +132,18 @@ while True:
     elif subject == "female" or subject == "male":
         apparel_tags = app.tag_urls([URL], model='apparel')
         apparel_concepts = apparel_tags['outputs'][0]['data']['concepts']
-        print(apparel_concepts)
+        #print(apparel_concepts)
         dict = {}
         eyes, eyes_confidence = is_eyes(general_concepts)
         hair_colour, hair_confidence = get_hair_colour(general_concepts)
         happy, happy_confidence = is_happy(general_concepts)
         clothes, clothes_confidence = get_clothing(apparel_concepts)
         outside, outside_confidence = is_outside(general_concepts)
-
-        print(eyes_confidence)
-        print(hair_confidence)
-        print(happy_confidence)
-        print(clothes_confidence)
-        print(outside_confidence)
-
+        #print(eyes_confidence)
+        #print(hair_confidence)
+        #print(happy_confidence)
+        #print(clothes_confidence)
+        #print(outside_confidence)
         dict["eyes"] = eyes_confidence
         dict["hair"] = hair_confidence
         dict["happy"] = happy_confidence
@@ -155,7 +151,7 @@ while True:
         dict["outside"] = outside_confidence
 
         largest = keywithmaxval(dict)
-        print(largest)
+        #print(largest)
         if largest == "eyes":
             final_tweet = tweets["single"]["Eye"][random.randrange(0, len(tweets["single"]["Eye"]))]
         elif largest == "hair":
@@ -167,5 +163,4 @@ while True:
         elif largest == "clothes":
             final_tweet = tweets["single"]["Clothes"][random.randrange(0, len(tweets["single"]["Clothes"]))].replace("$", clothes)
         final_tweet + "  " + tweets["icons"][random.randrange(0,10)]
-
-    print(final_tweet)
+    return final_tweet
