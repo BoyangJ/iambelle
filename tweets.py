@@ -5,7 +5,7 @@ import tweepy, time, sys
 import configparser
 import code
 
-from main import authorTweet
+from image_rec import authorTweet
 
 # get Twitter app auth info
 Config = configparser.ConfigParser()
