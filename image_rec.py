@@ -130,9 +130,9 @@ def authorTweet(URL):
     #print(subject + "  " + str(confidence))
     final_tweet = ""
     if subject == "group":
-        final_tweet = tweets["group"][random.randrange(0, 3)] + "  " + tweets["icons"][random.randrange(0,10)]
+        final_tweet = tweets["group"][random.randrange(0, len(tweets["group"]))] + "  " + tweets["icons"][random.randrange(0,len(tweets["icons"]))]
     elif subject in animal_tags:
-        final_tweet = (tweets["pets"][random.randrange(0, 3)] + "  " + tweets["icons"][random.randrange(0, 10)]).replace("$", subject)
+        final_tweet = (tweets["pets"][random.randrange(0, len(tweets["pets"]))] + "  " + tweets["icons"][random.randrange(0, len(tweets["icons"]))]).replace("$", subject.lower())
     elif subject == "female" or subject == "male":
         apparel_tags = app.tag_urls([URL], model='apparel')
         apparel_concepts = apparel_tags['outputs'][0]['data']['concepts']
@@ -143,6 +143,9 @@ def authorTweet(URL):
         happy, happy_confidence = is_happy(general_concepts)
         clothes, clothes_confidence = get_clothing(apparel_concepts)
         outside, outside_confidence = is_outside(general_concepts)
+        if clothes.lower() == "men's watch" || clothes.lower == "women's watch":
+            if not (clothing_confidence > 0.95):
+                clothes.confidence = -1.0
         #print(eyes_confidence)
         #print(hair_confidence)
         #print(happy_confidence)
@@ -160,13 +163,13 @@ def authorTweet(URL):
         if largest == "eyes":
             final_tweet = tweets["single"]["Eye"][random.randrange(0, len(tweets["single"]["Eye"]))]
         elif largest == "hair":
-            final_tweet = tweets["single"]["Hair"][random.randrange(0, len(tweets["single"]["Hair"]))].replace("$", hair_colour)
+            final_tweet = tweets["single"]["Hair"][random.randrange(0, len(tweets["single"]["Hair"]))].replace("$", hair_colour.lower())
         elif largest == "happy":
             final_tweet = tweets["single"]["Happy"][random.randrange(0, len(tweets["single"]["Happy"]))]
         elif largest == "outside":
             final_tweet = tweets["single"]["Outside"][random.randrange(0, len(tweets["single"]["Outside"]))]
         elif largest == "clothes":
-            final_tweet = tweets["single"]["Clothes"][random.randrange(0, len(tweets["single"]["Clothes"]))].replace("$", clothes)
+            final_tweet = tweets["single"]["Clothes"][random.randrange(0, len(tweets["single"]["Clothes"]))].replace("$", clothes.lower())
         else:
             final_tweet = tweets["single"]["Default"][random.randrange(0, len(tweets["single"]["Default"]))]
         final_tweet + "  " + tweets["icons"][random.randrange(0,len(tweets["icons"]))]
