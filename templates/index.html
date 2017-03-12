@@ -66,13 +66,11 @@
         <div class="one-half column value">
            <h2 class="friend">Introduce me!</h2>
           <p class="about">Tell me your friend's name, I will go meet them!</p>
-            <form action="">
-          <fieldset>
-            <input type="text" name="twitter" placeholder="@TwitterHandle"><br>
-            <input type="submit" value="Submit">
-          </fieldset>
-        </form>
+            <input type="text" placeholder="@TwitterHandle"><br>
+              <button id="submit-button" onclick="submitHandle()"> Go! </button>
+            <p class="about" id="hidden-submit"></p> 
         </div>
+            
         <div class="one-half column value">
               <h2 class="friend">My latest friend!</h2>
                 <div id="tweet"></div>
@@ -97,6 +95,14 @@
 	    });
 	</script>
 
+    <script>
+        function submitHandle() {
+            console.log("hi");
+        $("#submit-button").css("display", "none");
+        document.getElementById("hidden-submit").innerHTML= "I'll go look for them!";
+        }
+</script>
+    
             <!-- moment.js only needed for Query 6 example -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
 
