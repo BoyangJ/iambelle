@@ -24,7 +24,7 @@ service-identity==14.0.0
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.0.0
-tweepy==3.6.0
+tweepy==3.5.0
 vboxapi==1.0
 w3lib==1.11.0
 zope.interface==4.1.2
