@@ -50,7 +50,7 @@ def get_local_tweets():
 # parameter u_id can either be a twitter @handle, or an id
 def get_user_tweets(u_id):
 
-    user_tweets = api.user_timeline(u_id, tweet_mode='extended');
+    user_tweets = api.user_timeline(u_id, tweet_mode='extended', include_rts=False);
 
     print ("\n***** USER %s HAS %d TWEETS *****\n" % (u_id, len(user_tweets)))
     
@@ -106,7 +106,7 @@ def generate_reply(u_name):
 
 
 
-#get_user_tweets("baronbojangles")
+get_user_tweets("baronbojangles")
 #reply_to_tweet(840743579299414016)
 
 
