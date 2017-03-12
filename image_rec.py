@@ -4,7 +4,7 @@ from clarifai.rest import ClarifaiApp
 
 acceptable_confidence = 0.8
 clothing_confidence = 0.6
-app = ClarifaiApp()
+app = ClarifaiApp(os.environ['CLARIFAI_APP_ID'], os.environ['CLARIFAI_APP_SECRET'])
 masculine_tags = ["boy", "man", "male"]
 feminine_tags = ["woman", "girl", "female", "lady"]
 animal_tags = ["dog", "puppy", "cat", "kitten", "squirrel", "fish", "bird", "baby"]
