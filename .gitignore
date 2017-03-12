@@ -3,3 +3,4 @@
 
 # JetBrains
 __pycache__/
+*.pyc
