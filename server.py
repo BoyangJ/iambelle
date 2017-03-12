@@ -11,5 +11,6 @@ def index():
 @app.route('/introduceme', methods=['POST'])
 def introduce():
     thing = request.form['name']
+    thing.replace("@", "")
     # send data to boyangs function
     get_user_tweets(thing)
