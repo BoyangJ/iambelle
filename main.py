@@ -149,6 +149,7 @@ def authorTweet(URL):
         dict["happy"] = happy_confidence
         dict["clothes"] = clothes_confidence + 0.1
         dict["outside"] = outside_confidence
+        dict["unknown"] = 0
 
         largest = keywithmaxval(dict)
         #print(largest)
@@ -162,5 +163,7 @@ def authorTweet(URL):
             final_tweet = tweets["single"]["Outside"][random.randrange(0, len(tweets["single"]["Outside"]))]
         elif largest == "clothes":
             final_tweet = tweets["single"]["Clothes"][random.randrange(0, len(tweets["single"]["Clothes"]))].replace("$", clothes)
-        final_tweet + "  " + tweets["icons"][random.randrange(0,10)]
+        else:
+            final_tweet = tweets["single"]["Default"][random.randrange(0, len(tweets["single"]["Default"]))]
+        final_tweet + "  " + tweets["icons"][random.randrange(0,len(tweets["icons"]))]
     return final_tweet

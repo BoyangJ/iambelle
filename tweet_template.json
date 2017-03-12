@@ -32,7 +32,10 @@
 			"You look like you’re having fun outside!",
 			"Are you going on a fun adventure today?",
 			"Enjoy the sunshine sweetheart!"
-		]
+		],
+	"Default": [
+			"What a wonderful picture of you!"
+	]
   },
   "group": [ 
 		"What a good looking group!",
