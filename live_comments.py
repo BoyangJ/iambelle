@@ -9,11 +9,13 @@ from tweets import get_local_tweets
 Config = configparser.ConfigParser()
 Config.read("config.ini")
 
+# used by Heroku
 #CONSUMER_KEY = os.environ['CONSUMER_KEY']
 #CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 #ACCESS_KEY = os.environ['ACCESS_KEY']
 #ACCESS_SECRET = os.environ['ACCESS_SECRET']
 
+# used for local testing
 CONSUMER_KEY = Config['AuthInfo']['CONSUMER_KEY']
 CONSUMER_SECRET = Config['AuthInfo']['CONSUMER_SECRET']
 ACCESS_KEY = Config['AuthInfo']['ACCESS_KEY']
