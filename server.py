@@ -14,3 +14,4 @@ def introduce():
     thing.replace("@", "")
     # send data to boyangs function
     get_user_tweets(thing)
+    return thing
