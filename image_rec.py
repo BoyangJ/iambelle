@@ -7,8 +7,10 @@ from clarifai.rest import ClarifaiApp
 acceptable_confidence = 0.8
 clothing_confidence = 0.6
 app = ClarifaiApp(os.environ['CLARIFAI_APP_ID'], os.environ['CLARIFAI_APP_SECRET'])
-#app = ClarifaiApp()
-masculine_tags = ["boy", "man", "male"]
+
+
+# Relevant Clarif.ai tags for our categories
+masculine_tags = ["boy", "man", "male", "people"]
 feminine_tags = ["woman", "girl", "female", "lady"]
 animal_tags = ["dog", "puppy", "cat", "kitten", "squirrel", "fish", "bird", "baby"]
 hair_colours = ["blond", "brunette", "redhead", "ginger"]
@@ -21,6 +23,8 @@ def keywithmaxval(d):
     k = list(d.keys())
     return k[v.index(max(v))]
 
+
+# Returns the the main focus of the photo.
 def get_subject(concepts):
     subject = "unknown"
     confidence = -1.0
@@ -51,6 +55,8 @@ def get_subject(concepts):
             break
     return subject, confidence
 
+
+# Checks if eyes are prominent in the photo.
 def is_eyes(concepts):
     eyes = "False"
     confidence = -1.0
@@ -62,6 +68,8 @@ def is_eyes(concepts):
             break
     return eyes, confidence
 
+
+# Checks if happiness is a prominent feature
 def is_happy(concepts):
     happy = "False"
     confidence = -1.0
@@ -73,17 +81,8 @@ def is_happy(concepts):
             break
     return happy, confidence
 
-def is_smiling(concepts):
-    smiling = "False"
-    confidence = -1.0
-    for attribute in concepts:
-        if attribute["name"] == "smile":
-            confidence = attribute["value"]
-            if confidence > acceptable_confidence:
-                smiling = True
-            break
-    return smiling, confidence
 
+# Checks if hair colour is a prominent feature
 def get_hair_colour(concepts):
     hair_colour = "unknown"
     confidence = -1.0
@@ -96,7 +95,9 @@ def get_hair_colour(concepts):
             break
     return hair_colour, confidence
 
-def get_clothing(concepts):
+
+# Returns the most likely category for a photo.
+def get_top_tag(concepts):
     clothing = "unknown"
     confidence = -1.0
     if confidence > clothing_confidence:
@@ -104,6 +105,7 @@ def get_clothing(concepts):
         confidence = concepts[0]["value"]
     return clothing, confidence
 
+# Checks if the photo is likely to be outdoors
 def is_outside(concepts):
     outside = "False"
     confidence = -1.0
@@ -117,62 +119,64 @@ def is_outside(concepts):
 
 def authorTweet(URL):
 
-    tweet_file = open("tweet_template.json", 'r', encoding="utf8")
-    tweets = json.load(tweet_file)
-
+    tweet_template_file = open("tweet_template.json", 'r', encoding="utf8")
+    tweet_template = json.load(tweet_template_file)
 
     general_tags = app.tag_urls([URL], model='general-v1.3')
     general_concepts = general_tags['outputs'][0]['data']['concepts']
+    print("General Concepts: " + general_concepts)
 
     subject, confidence = get_subject(general_concepts)
-    #print(general_concepts)
+    print("Subject: %s, Confidence: %s" % subject, str(confidence))
 
-    #print(subject + "  " + str(confidence))
+    # Authors a tweet based off what is believed to be in the photo
     final_tweet = ""
     if subject == "group":
-        final_tweet = tweets["group"][random.randrange(0, len(tweets["group"]))] + "  " + tweets["icons"][random.randrange(0,len(tweets["icons"]))]
+        final_tweet = tweet_template["group"][random.randrange(0, len(tweet_template["group"]))] + "  " + tweet_template["icons"][random.randrange(0,len(tweet_template["icons"]))]
     elif subject in animal_tags:
-        final_tweet = (tweets["pets"][random.randrange(0, len(tweets["pets"]))] + "  " + tweets["icons"][random.randrange(0, len(tweets["icons"]))]).replace("$", subject.lower())
+        final_tweet = (tweet_template["pets"][random.randrange(0, len(tweet_template["pets"]))] + "  " + tweet_template["icons"][random.randrange(0, len(tweet_template["icons"]))]).replace("$", subject.lower())
     elif subject == "female" or subject == "male":
         apparel_tags = app.tag_urls([URL], model='apparel')
         apparel_concepts = apparel_tags['outputs'][0]['data']['concepts']
-        #print(apparel_concepts)
-        dict = {}
+        print("Apparel Concepts: " + apparel_concepts)
+
+        # Populates a map with confidences and values for photo categories
+        confidence_map = {}
         eyes, eyes_confidence = is_eyes(general_concepts)
         hair_colour, hair_confidence = get_hair_colour(general_concepts)
         happy, happy_confidence = is_happy(general_concepts)
-        clothes, clothes_confidence = get_clothing(apparel_concepts)
+        clothes, clothes_confidence = get_top_tag(apparel_concepts)
         outside, outside_confidence = is_outside(general_concepts)
+
+        # Quickly just ensures that watches are not over reported
         if clothes.lower() == "men's watch" or clothes.lower == "women's watch":
             if not (clothing_confidence > 0.95):
                 clothes.confidence = -1.0
-        #print(eyes_confidence)
-        #print(hair_confidence)
-        #print(happy_confidence)
-        #print(clothes_confidence)
-        #print(outside_confidence)
-        dict["eyes"] = eyes_confidence
-        dict["hair"] = hair_confidence
-        dict["happy"] = happy_confidence
-        dict["clothes"] = clothes_confidence + 0.1
-        dict["outside"] = outside_confidence
-        dict["unknown"] = 0
 
-        largest = keywithmaxval(dict)
-        #print(largest)
+        confidence_map["eyes"] = eyes_confidence
+        confidence_map["hair"] = hair_confidence
+        confidence_map["happy"] = happy_confidence
+        confidence_map["clothes"] = clothes_confidence + 0.1
+        confidence_map["outside"] = outside_confidence
+        confidence_map["unknown"] = 0
+
+        for key, value in confidence_map.items():
+            print("Category: %s, Confidence: %s" % key, value)
+
+        largest = keywithmaxval(confidence_map)
         if largest == "eyes":
-            final_tweet = tweets["single"]["Eye"][random.randrange(0, len(tweets["single"]["Eye"]))]
+            final_tweet = tweet_template["single"]["Eye"][random.randrange(0, len(tweet_template["single"]["Eye"]))]
         elif largest == "hair":
-            final_tweet = tweets["single"]["Hair"][random.randrange(0, len(tweets["single"]["Hair"]))].replace("$", hair_colour.lower())
+            final_tweet = tweet_template["single"]["Hair"][random.randrange(0, len(tweet_template["single"]["Hair"]))].replace("$", hair_colour.lower())
         elif largest == "happy":
-            final_tweet = tweets["single"]["Happy"][random.randrange(0, len(tweets["single"]["Happy"]))]
+            final_tweet = tweet_template["single"]["Happy"][random.randrange(0, len(tweet_template["single"]["Happy"]))]
         elif largest == "outside":
-            final_tweet = tweets["single"]["Outside"][random.randrange(0, len(tweets["single"]["Outside"]))]
+            final_tweet = tweet_template["single"]["Outside"][random.randrange(0, len(tweet_template["single"]["Outside"]))]
         elif largest == "clothes":
-            final_tweet = tweets["single"]["Clothes"][random.randrange(0, len(tweets["single"]["Clothes"]))].replace("$", clothes.lower())
+            final_tweet = tweet_template["single"]["Clothes"][random.randrange(0, len(tweet_template["single"]["Clothes"]))].replace("$", clothes.lower())
         else:
-            final_tweet = tweets["single"]["Default"][random.randrange(0, len(tweets["single"]["Default"]))]
-        final_tweet + "  " + tweets["icons"][random.randrange(0,len(tweets["icons"]))]
+            final_tweet = tweet_template["single"]["Default"][random.randrange(0, len(tweet_template["single"]["Default"]))]
+        final_tweet + "  " + tweet_template["icons"][random.randrange(0,len(tweet_template["icons"]))]
     return final_tweet
 
 #print(authorTweet('https://headshotcrew.com/sites/all/themes/hsc/images/maurice.jpg'))
