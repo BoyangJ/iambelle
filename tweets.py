@@ -111,8 +111,8 @@ def reply_to_tweet(t_id, tweet):
 
 # generates a tweet's text body
 # parameter u_name must be the Twitter @handle of the recipient
-def generate_reply(u_name):
-    return "@%s you are pretty ☺️" % u_name
+#def generate_reply(u_name):
+#    return "@%s you are pretty ☺️" % u_name
 
 
 
