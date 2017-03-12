@@ -16,6 +16,12 @@ CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 ACCESS_KEY = os.environ['ACCESS_KEY']
 ACCESS_SECRET = os.environ['ACCESS_SECRET']
+
+#CONSUMER_KEY = Config['AuthInfo']['CONSUMER_KEY']
+#CONSUMER_SECRET = Config['AuthInfo']['CONSUMER_SECRET']
+#ACCESS_KEY = Config['AuthInfo']['ACCESS_KEY']
+#ACCESS_SECRET = Config['AuthInfo']['ACCESS_SECRET']
+
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
@@ -93,9 +99,13 @@ def reply_to_tweet(t_id, tweet):
     #reply_text = generate_reply(screen_name)
     #print ("\nREPLY TEXT HERE = ", reply_text)
 
-    api.create_favorite(t_id)
-    api.update_status(tweet, t_id)
-
+    try:
+        api.create_favorite(t_id)
+        api.update_status(tweet, t_id)
+        return True
+    except tweepy.TweepError:
+        print ("\n Already favorited this tweet. \n")
+        return False
 
 
 # generates a tweet's text body
