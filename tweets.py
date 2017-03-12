@@ -39,9 +39,13 @@ def get_local_tweets():
 
     counter = 0
 
-    for status in reversed(vic_tweets):
+    temp = True
+
+    for status in vic_tweets:
         if 'media' in status.entities:
-            if status.entities['media'][0]['type'] == 'photo':
+            if status.entities['media'][0]['type'] == 'photo' and temp:
+
+                print ("\nALL THING = \n", status)
                 print ("\nTEXT = ", status.full_text)
                 print ("ID = ", status.id)
                 print ("CREATED AT = ", status.created_at)
@@ -49,6 +53,7 @@ def get_local_tweets():
                 print ("url = twitter.com/statuses/", status.id, sep='')
                 print ("media_url = ", status.entities['media'][0]['media_url_https'])
                 counter = counter+1
+                temp = False
 
     print ("\n***** NUM PICTURES = %d *****\n" % counter)
 
@@ -117,7 +122,7 @@ def reply_to_tweet(t_id, tweet):
 
 
 
-
+#get_local_tweets()
 #get_user_tweets("baronbojangles")
 #reply_to_tweet(840743579299414016)
 
