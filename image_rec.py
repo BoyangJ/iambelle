@@ -97,9 +97,10 @@ def get_hair_colour(concepts):
 
 def get_clothing(concepts):
     clothing = "unknown"
-    confidence = concepts[0]["value"]
+    confidence = -1.0
     if confidence > clothing_confidence:
         clothing = concepts[0]["name"]
+        confidence = concepts[0]["value"]
     return clothing, confidence
 
 def is_outside(concepts):
